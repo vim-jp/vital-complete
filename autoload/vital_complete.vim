@@ -27,7 +27,8 @@ endfunction
 function! vital_complete#update(plugin_name) abort
   let data = s:update_plugin_data(a:plugin_name)
   if empty(data)
-    call s:Message.error(printf('vital-complete: fail to update plugin data: %s', a:plugin_name))
+    call s:Message.error(printf('vital-complete: plugin data is empty. Run :Vitalize may fix this problem: %s', a:plugin_name))
+    return
   endif
   call s:Message.echomsg('MoreMsg', printf('vital-complete: update plugin data: %s', a:plugin_name))
 endfunction
@@ -127,7 +128,8 @@ function! s:plugin_data(plugin_name) abort
   let data_path = s:data_path(a:plugin_name)
   if !filereadable(data_path)
     " NOTE: data is not found. generate data?
-    return s:update_plugin_data()
+    call s:Message.echomsg('MoreMsg', 'Generating vital completion data... hang tight')
+    return s:update_plugin_data(a:plugin_name)
   endif
   sandbox let s:data_cache[a:plugin_name] = eval(readfile(data_path, 1)[0])
   return s:data_cache[a:plugin_name]
