@@ -19,13 +19,13 @@ let g:vital_complete#max_search_line = get(g:, 'vital_complete#max_search_line',
 " setlocal omnifunc=vital_complete#complete
 function! vital_complete#complete(findstart, base) abort
   if a:findstart
-    return s:find_start_col()
+    return vital_complete#find_start_col()
   endif
-  return s:completion_items(s:context(), a:base)
+  return vital_complete#completion_items(s:context(), a:base)
 endfunction
 
 function! vital_complete#manual_complete()
-  let idx = s:find_start_col()
+  let idx = vital_complete#find_start_col()
   if idx < 0
     return ''
   endif
@@ -44,6 +44,10 @@ function! vital_complete#update(plugin_name) abort
   call s:Message.echomsg('MoreMsg', printf('vital-complete: update plugin data: %s', a:plugin_name))
 endfunction
 
+function! vital_complete#context() abort
+  return s:context()
+endfunction
+
 function! s:context() abort
   let line = getline('.')
   let col = col('.')
@@ -58,7 +62,7 @@ function! s:context() abort
   \ }
 endfunction
 
-function! s:find_start_col() abort
+function! vital_complete#find_start_col() abort
   let ctx = s:context()
   if empty(ctx)
     return -1
@@ -66,7 +70,7 @@ function! s:find_start_col() abort
   return ctx.start_col
 endfunction
 
-function! s:completion_items(ctx, base) abort
+function! vital_complete#completion_items(ctx, base) abort
   if empty(a:ctx)
     return []
   endif
