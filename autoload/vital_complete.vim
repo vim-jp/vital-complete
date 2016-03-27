@@ -24,6 +24,17 @@ function! vital_complete#complete(findstart, base) abort
   return s:completion_items(s:context(), a:base)
 endfunction
 
+function! vital_complete#manual_complete()
+  let idx = s:find_start_col()
+  if idx < 0
+    return ''
+  endif
+  let col = idx + 1
+  let base = getline('.')[idx : col('.')-1]
+  call complete(col, vital_complete#complete(0, base))
+  return ''
+endfunction
+
 function! vital_complete#update(plugin_name) abort
   let data = s:update_plugin_data(a:plugin_name)
   if empty(data)
