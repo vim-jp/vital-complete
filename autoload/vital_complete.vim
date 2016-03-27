@@ -127,7 +127,7 @@ endfunction
 " @returns {{<var>: <module_name>}}
 function! s:list_imports() abort
   let d = {}
-  let pattern = '\vlet\s+([sg]:\w+)\s*\=.{-}[.#]import\(["''](\u%(\w+%(\.=))+)["'']\)'
+  let pattern = '\vlet\s+(%([sg]:)?\w+)\s*\=.{-}[.#]import\(["''](\u%(\w+%(\.=))+)["'']\)'
   for line in filter(getline(1, g:vital_complete#max_search_line), 'v:val =~# pattern')
     let [_, var, module; __] = matchlist(line, pattern)
     let d[var] = module
