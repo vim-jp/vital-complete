@@ -11,8 +11,9 @@ let s:source = {
 \   'name': 'vital',
 \   'kind': 'manual',
 \   'input_pattern': '\h\w*\.\?',
-\   'filetypes': {'vim': 1 },
+\   'filetypes': {'vim': 1, 'vimspec': 1},
 \ }
+" vimspec: for https://github.com/thinca/vim-themis
 
 function! s:source.get_complete_position(context)
   return vital_complete#find_start_col()
