@@ -151,11 +151,11 @@ function! s:plugin_data(plugin_name) abort
 endfunction
 
 function! s:data_path(plugin_name) abort
-  return expand(printf('~/.config/vim/vital-complete/%s.data', a:plugin_name))
+  return expand(printf('~/.cache/vim/vital-complete/%s.data', a:plugin_name))
 endfunction
 
 function! s:update_plugin_data(plugin_name) abort
-  call s:File.mkdir_nothrow(expand('~/.config/vim/vital-complete/'), 'p')
+  call s:File.mkdir_nothrow(expand('~/.cache/vim/vital-complete/'), 'p')
   let data = s:generate_plugin_data(a:plugin_name)
   call writefile([string(data)], s:data_path(a:plugin_name))
   return data
