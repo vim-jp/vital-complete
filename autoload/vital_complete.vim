@@ -1,8 +1,3 @@
-"=============================================================================
-" FILE: autoload/vital_complete.vim
-" AUTHOR: haya14busa
-" License: MIT license
-"=============================================================================
 scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
